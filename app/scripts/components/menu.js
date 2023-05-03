@@ -4,6 +4,8 @@
  */
 import React from 'react';
 
+import { debounce } from '../utils';
+
 class Menu extends React.Component {
 
     /**
@@ -70,7 +72,7 @@ class Menu extends React.Component {
                     </div>
                 </div>
                 <div className={(this.state.showingSearch ? "showing " : "") + "search-container"}>
-                    <input type="text" onChange={(e) => this.onSearch(e)} />
+                    <input type="text" onChange={debounce((e) => {this.onSearch(e.target.value)}, 1000)} />
                     <a href="#" onClick={(e) => this.showSearchContainer(e)}>
                         <i className="material-icons close">close</i>
                     </a>
