@@ -5,6 +5,7 @@
 import React from 'react';
 
 import { debounce } from '../utils';
+import SearchResultsList from './search-results-list'
 
 class Menu extends React.Component {
 
@@ -76,6 +77,7 @@ class Menu extends React.Component {
                     <a href="#" onClick={(e) => this.showSearchContainer(e)}>
                         <i className="material-icons close">close</i>
                     </a>
+                    <SearchResultsList />
                 </div>
             </header>
         );
