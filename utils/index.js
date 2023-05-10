@@ -14,6 +14,29 @@ function debounce(func, timeout = 300){
   };
 }
 
+/**
+ * utility method to filter data source by string query
+ * 
+ * @param {string} stringQuery - string that represent query
+ * @param {Object[]} dataSource - data source structured as array of objects
+ * @returns {Object[]} - filtered array of objects
+ */
+function filterDataItemsByString(stringQuery, dataSource){
+  const filteredData = dataSource.filter((item) => {
+    if (
+      item.price.indexOf(stringQuery) > -1
+      || item.name.indexOf(stringQuery) > -1
+      || item.about.indexOf(stringQuery) > -1
+      || item.tags.indexOf(stringQuery) > -1
+    ) {
+      return item;
+    }
+  });
+
+  return filteredData;
+};
+
 module.exports = {
   debounce,
+  filterDataItemsByString,
 };

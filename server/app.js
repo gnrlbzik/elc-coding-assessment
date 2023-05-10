@@ -21,8 +21,14 @@
 */
 const data      = require('./data');
 const http      = require('http');
-const hostname  = 'localhost';
-const port      = 3035;
+const url       = require('url');
+
+const {
+    filterDataItemsByString
+}               = require('../utils')
+
+const HOSTNAME  = 'localhost';
+const PORT      = 3035;
 
 /** 
  * Start the Node Server Here...
@@ -34,11 +40,20 @@ const port      = 3035;
  */
 http.createServer(function (req, res) {
     // .. Here you can create your data response in a JSON format
-    
-    
-    res.write("Response goes in here..."); // Write out the default response
+    const parsedUrl = url.parse(req.url, true);
+    const { pathname, query } = parsedUrl;
+
+    if (pathname === '/search') {
+        console.log('!!! /search end point', query)
+        const filteredData = filterDataItemsByString(query.queryToSearchBy, data)
+        res.setHeader('Content-Type', 'application/json');
+        res.write(JSON.stringify(filteredData));
+        res.end(); //end the response
+        return;
+    }
+    res.write('I am an api response.'); // Write out the default response
     res.end(); //end the response
-}).listen( port );
+}).listen( PORT );
 
 
-console.log(`[Server running on ${hostname}:${port}]`);
+console.log(`[Server running on ${HOSTNAME}:${PORT}]`);
