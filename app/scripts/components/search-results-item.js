@@ -15,9 +15,11 @@ const SearchResultsItem = (props) => {
     tags,
   } = itemData;
 
+  const isActiveSetToTrue = (isActive === 'true')
+
   return (
-    <li>
-      {isActive ? (<b>Active Item</b>) : null}
+    <li className={`search-results-item ${!isActiveSetToTrue ? "unavailable" : ""}`}>
+      {!isActiveSetToTrue ? (<b>Unavailable</b>) : null}
       {picture ? (<img src={picture} />) : null}
       {name ? (<h1>{name}</h1>) : null}
       {price ? (<h2>${price}</h2>) : null}

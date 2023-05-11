@@ -4,6 +4,7 @@
  */
 import React from 'react';
 
+import { apiGetSearch } from '../services/api';
 import { debounce } from '../../../utils';
 import SearchResultsList from './search-results-list'
 
@@ -16,7 +17,9 @@ class Menu extends React.Component {
     constructor() {
         super();
         this.state = {
-            showingSearch: false
+            showingSearch: false,
+            searchQuery: '',
+            searchResults: [],
         };
     }
 
@@ -37,12 +40,13 @@ class Menu extends React.Component {
      * @memberof Menu
      * @param e [Object] - the event from a text change handler
      */
-    onSearch(e) {
-        
-        // Start Here
-        // ...
-        
+    async onSearch(searchQuery) {
 
+        const searchResults = await apiGetSearch(searchQuery)
+        this.setState({
+            searchQuery: searchQuery,
+            searchResults: searchResults,
+        });
     }
 
     /**
@@ -77,7 +81,7 @@ class Menu extends React.Component {
                     <a href="#" onClick={(e) => this.showSearchContainer(e)}>
                         <i className="material-icons close">close</i>
                     </a>
-                    <SearchResultsList />
+                    <SearchResultsList results={this.state.searchResults} searchQuery={this.state.searchQuery} />
                 </div>
             </header>
         );
