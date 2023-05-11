@@ -24,10 +24,10 @@ function debounce(func, timeout = 300){
 function filterDataItemsByString(stringQuery, dataSource){
   const filteredData = dataSource.filter((item) => {
     if (
-      item.price.indexOf(stringQuery) > -1
-      || item.name.indexOf(stringQuery) > -1
-      || item.about.indexOf(stringQuery) > -1
-      || item.tags.indexOf(stringQuery) > -1
+      item.price?.toLowerCase().indexOf(stringQuery.toLowerCase()) > -1
+      || item.name?.toLowerCase().indexOf(stringQuery.toLowerCase()) > -1
+      || item.about?.toLowerCase().indexOf(stringQuery.toLowerCase()) > -1
+      || item.tags.indexOf(stringQuery.toLowerCase()) > -1
     ) {
       return item;
     }
