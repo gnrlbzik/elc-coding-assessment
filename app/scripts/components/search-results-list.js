@@ -16,7 +16,10 @@ const SearchResultsList = (props) => {
 
   return (
     <ul>
-      {results.map((itemData, itemIndex) => <SearchResultsItem index={itemIndex} itemData={itemData} />)}
+      {results.map((itemData, itemIndex) => {
+        const uniqueKey = `"${itemData._id}-${itemData.name}"`
+        return (<SearchResultsItem itemData={itemData} key={uniqueKey} />);
+      })}
     </ul>
   );
 }

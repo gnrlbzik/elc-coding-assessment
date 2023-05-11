@@ -22,7 +22,7 @@ const SearchResultsItem = (props) => {
       {name ? (<h1>{name}</h1>) : null}
       {price ? (<h2>${price}</h2>) : null}
       {about ? (<p>{about}</p>) : null}
-      {tags ? (<ul>{tags.map((tagValue, tagIndex) => <li index={tagIndex}>{tagValue}</li>)}</ul>) : null}
+      {tags ? (<ul>{tags.map((tagValue, tagIndex) => <li key={tagIndex}>{tagValue}</li>)}</ul>) : null}
     </li>
   );
 }
