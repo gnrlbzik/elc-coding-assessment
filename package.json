@@ -51,7 +51,7 @@
     "react-native-dotenv": "^2.5.5",
     "sass": "^1.57.1",
     "uglify-js": "3.2.2",
-    "webpack": "^5.75.0",
+    "webpack": "^5.76.0",
     "webpack-stream": "^7"
   }
 }
