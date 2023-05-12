@@ -19,16 +19,16 @@
     ]
 }
 */
-const data      = require('./data');
-const http      = require('http');
-const url       = require('url');
+const data        = require('./data');
+const http        = require('http');
+const url         = require('url');
 
 const {
     filterDataItemsByString
-}               = require('../utils')
+}                 = require('../utils')
 
-const HOSTNAME  = 'localhost';
-const PORT      = 3035;
+const HOSTNAME    = 'localhost';
+const PORT_SERVER = 3035;
 
 /** 
  * Start the Node Server Here...
@@ -38,7 +38,7 @@ const PORT      = 3035;
  * The Request object 'req' represents the request to the server.
  * The ServerResponse object 'res' represents the writable stream back to the client.
  */
-http.createServer(function (req, res) {
+http.createServer(async function (req, res) {
     // .. Here you can create your data response in a JSON format
     const parsedUrl = url.parse(req.url, true);
     const { pathname, query } = parsedUrl;
@@ -46,14 +46,20 @@ http.createServer(function (req, res) {
     if (pathname === '/search') {
         console.log('!!! /search end point', query)
         const filteredData = filterDataItemsByString(query.queryToSearchBy, data)
+
         res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3030');
+        res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST, GET');
+        res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+        res.setHeader('Access-Control-Max-Age', 2592000); // 30 days
+
         res.write(JSON.stringify(filteredData));
         res.end(); //end the response
         return;
     }
     res.write('I am an api response.'); // Write out the default response
     res.end(); //end the response
-}).listen( PORT );
+}).listen( PORT_SERVER );
 
 
-console.log(`[Server running on ${HOSTNAME}:${PORT}]`);
+console.log(`[Server running on ${HOSTNAME}:${PORT_SERVER}]`);
