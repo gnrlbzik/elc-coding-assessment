@@ -4,4 +4,4 @@
  */
 import React from 'react';
 
-<div class="loading-progress-indicator"><div></div><div></div><div></div><div></div></div>
+<div className="loading-progress-indicator"><div></div><div></div><div></div><div></div></div>
